@@ -152,9 +152,9 @@ EXOPLANET_CLASSIFIER/
 │   └── source.txt
 │
 ├── models/              
-│   ├── column_names.pkl    # Not included in the repo
+│   ├── column_names.pkl    # Not included in the repo, run fit.py to generate
 │   ├── info.txt
-│   └── pipe.pkl            # Not included in the repo
+│   └── pipe.pkl            # Not included in the repo, run fit.py to generate
 │
 ├── screenshots/           
 │
