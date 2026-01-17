@@ -1,4 +1,4 @@
-# Dockerfile (urbanecho)
+# Dockerfile (exoplanet_classifier)
 FROM python:3.11-slim
 
 # Avoid interactive prompts
@@ -19,4 +19,5 @@ ENV FLASK_APP=app.py
 EXPOSE 5000
 
 # run the flask app
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "2"]
+CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "2"]
+
