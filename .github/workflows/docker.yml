@@ -5,8 +5,30 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs: 
+      should_run : ${{ steps.filter.outputs.src }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            src:
+              - ".github/workflows/docker.yml"
+              - "Dockerfile"
+              - "requirements.txt"
+              - "fit.py"
+              - "app.py"
+
   docker-build:
+    needs: changes
+    if: ${{ needs.changes.outputs.should_run == 'true'}}
     runs-on: ubuntu-latest
 
     steps:
