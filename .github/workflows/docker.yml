@@ -55,8 +55,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generate model artifacts
-        run: python fit.py
+      - name: Download model artifacts from Hugging Face
+        run: python -m models.download_from_hf
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
