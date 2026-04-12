@@ -1,6 +1,6 @@
-# The Exoplanet Classifier 🪐
+# TransitIQ 🪐
 
-> Welcome to my enhanced fork of **The Exoplanet Classifier**. Originally developed with my teammates from **Ontohin 4b** for the **NASA Space Apps Challenge 2025**, this project now represents the upgraded and research-extended version of that submission. To check out the original repository, click [**here**](https://github.com/Ontohin-4b/The_Exoplanet_Classifier).   
+> Welcome to my enhanced fork of **The Exoplanet Classifier** (now renamed to **TransitIQ**). Originally developed with my teammates from **Ontohin 4b** for the **NASA Space Apps Challenge 2025**, this project now represents the upgraded and research-extended version of that submission. To check out the original repository, click [**here**](https://github.com/Ontohin-4b/The_Exoplanet_Classifier).   
 > 
 > The original repository remains archived under [**Ontohin 4b**](https://github.com/Ontohin-4b) and licensed as such. This fork exists purely for further research, experimentation, and personal development to make the classifier far more powerful and accurate than the hackathon version.
 
@@ -11,7 +11,7 @@ This version blends the strengths of **ensemble learning** with extensive prepro
 
 ## Table of Contents
 
-- [The Exoplanet Classifier 🪐](#the-exoplanet-classifier-)
+- [TransitIQ 🪐](#transitiq-)
   - [Table of Contents](#table-of-contents)
   - [Project Overview](#project-overview)
   - [Screenshots](#screenshots)
@@ -83,8 +83,8 @@ The goal is to provide a *scientifically meaningful, intuitive, and educational 
 
 
 ```bash
-git  clone  https://github.com/ByteBard58/Exoplanet_Classifier
-cd  "Exoplanet_Classifier"
+git  clone  https://github.com/ByteBard58/TransitIQ
+cd  "TransitIQ"
 ```
   
 2.  **Install dependencies**
@@ -143,7 +143,7 @@ Check [Docker Documentation](https://docs.docker.com/) to learn more about Docke
 ## Project Structure
 
 ```
-EXOPLANET_CLASSIFIER/
+TransitIQ/
 ├── .github/              # Folder for GitHub actions
 │
 ├── data/             
@@ -242,7 +242,7 @@ Targets are mapped as follows:
 ### Training Workflow
 - Train/test split: **2/3 training, 1/3 testing** with stratification on class labels.  
 - Pipeline is trained end-to-end in `fit.py`.  
-- Hyperparameters and model choices were extensively tested in [research.ipynb](https://github.com/ByteBard58/Exoplanet_Classifier/blob/main/research.ipynb), which served as a sandbox for experimentation and optimization.  
+- Hyperparameters and model choices were extensively tested in [research.ipynb](https://github.com/ByteBard58/TransitIQ/blob/main/research.ipynb), which served as a sandbox for experimentation and optimization.  
 - Final trained pipeline is saved as `models/pipe.pkl` and column order as `models/column_names.pkl`.
 
 ---
