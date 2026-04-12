@@ -1,2 +1,5 @@
 .pkl files go here. Run fit.py  to train the train the model.
  It will automatically create the .pkl files.
+
+ The app uses the .pkl files saved in Hugging Face so that it won't have to 
+ spend so much compute on training the models each time.
