@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 import numpy as np
 from flask import Flask, render_template, request, jsonify
-from fit import main
+from models.download_from_hf import download
 
 # --- Configuration ---
 MODEL_DIR = "models"
@@ -30,16 +30,15 @@ def initialize_artifacts():
         if not columns_exists:
             print(f"Missing: {COLUMNS_PATH}")
         
-        print("Running training routine (fit.main())... This may take a moment.")
+        print("Downloading the saved models from Hugging Face... This may take a moment.")
         try:
-            # Run the main training function from fit.py
-            main()
-            print("Training complete. Artifacts generated successfully.")
+            # Run the `download` function from `models/download_from_hf.py`
+            download()
+            print("Download complete. Artifacts generated successfully.")
             print("---------------------------------")
         except Exception as e:
-            print(f"\nFATAL: Error during self-heal training: {e}")
-            print("Application cannot start without model artifacts.")
-            print("Please fix the training script (fit.py) and restart.")
+            print(f"\nFATAL: Error during self-heal downloading: {e}")
+            print("Application cannot start without model artifacts. Exitting......")
             exit(1) # Exit if training fails
     else:
         print("Model artifacts found. Loading...")
