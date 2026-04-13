@@ -24,10 +24,7 @@ jobs:
               - "Dockerfile"
               - ".dockerignore"
               - "requirements.txt"
-              - "fit.py"
-              - "app.py"
-              - "templates/**"
-              - "static/**"
+              - "app/**"
               - "models/**"
 
   docker-build:

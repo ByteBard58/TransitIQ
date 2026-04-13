@@ -24,13 +24,10 @@ jobs:
         with:
           filters: |
             src:
-              - ".github/workflows/python-app.yml"
-              - "data/**"
+              - ".github/workflows/docker.yml"
+              - "requirements.txt"
+              - "app/**"
               - "models/**"
-              - "static/**"
-              - "templates/**"
-              - "app.py"
-              - "fit.py"
 
   build:
     needs: changes
