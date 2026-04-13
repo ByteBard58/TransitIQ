@@ -5,7 +5,7 @@ This script is used to generate samples directly from the main dataset.
 These samples are used to test the `/predict/batch` route. 
 To run it, enter this in your command line:
 ```
-python -m data.sample_generator.py
+python -m data.sample_generator
 ```
 """
 
