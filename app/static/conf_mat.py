@@ -50,10 +50,12 @@ def initialize_artifacts() -> Pipeline:
             print("Application cannot start without model artifacts. Exitting......")
             exit(1) # Exit if training fails
     else:
-        print("Model artifacts found. Loading...")
-        pipe = joblib.load(PIPE_PATH)
-        print("Model artifacts are loaded. Ready for prediction 🚀")
-        return pipe
+        print("Model artifacts found.")
+    
+    print("Loading model artifacts....")
+    pipe = joblib.load(PIPE_PATH)
+    print("Model artifacts are loaded. Ready for prediction 🚀")
+    return pipe
 
 def get_window(camps, campaign_dates):
     if pd.isna(camps) or not camps:

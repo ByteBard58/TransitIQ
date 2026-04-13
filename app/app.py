@@ -53,11 +53,13 @@ def initialize_artifacts() -> Tuple[Pipeline,np.ndarray]:
             print("Application cannot start without model artifacts. Exitting......")
             exit(1) # Exit if training fails
     else:
-        print("Model artifacts found. Loading...")
-        pipe = joblib.load(PIPE_PATH)
-        column_names = joblib.load(COLUMNS_PATH)
-        print("Model artifacts are loaded. Ready for prediction 🚀")
-        return pipe,column_names
+        print("Model artifacts found.")
+
+    print("Loading model artifacts....")
+    pipe = joblib.load(PIPE_PATH)
+    column_names = joblib.load(COLUMNS_PATH)
+    print("Model artifacts are loaded. Ready for prediction 🚀")
+    return pipe,column_names
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
