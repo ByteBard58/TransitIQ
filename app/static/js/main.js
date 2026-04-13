@@ -27,6 +27,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Field Labels for Human-Readable Errors
+    const fieldLabels = {
+        'koi_period': 'Orbital Period',
+        'koi_time0bk': 'Transit Epoch',
+        'koi_depth': 'Transit Depth',
+        'koi_prad': 'Planet Radius',
+        'koi_sma': 'Semi-Major Axis',
+        'koi_incl': 'Inclination',
+        'koi_teq': 'Equilibrium Temp',
+        'koi_insol': 'Insolation Flux',
+        'koi_impact': 'Impact Parameter',
+        'koi_ror': 'Planet/Star Radius Ratio',
+        'koi_srho': 'Stellar Density',
+        'koi_dor': 'Planet-Star Distance',
+        'koi_num_transits': 'Number of Transits'
+    };
+
+    // Notification System
+    function showNotification(message, type = 'info') {
+        const container = document.getElementById('notification-container');
+        if (!container) return;
+
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        const icons = {
+            success: 'fa-circle-check',
+            error: 'fa-circle-exclamation',
+            info: 'fa-circle-info'
+        };
+
+        notification.innerHTML = `
+            <i class="fa-solid ${icons[type]} notification-icon"></i>
+            <span>${message}</span>
+        `;
+
+        container.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => notification.classList.add('active'), 10);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+            notification.classList.remove('active');
+            setTimeout(() => notification.remove(), 400);
+        }, 5000);
+    }
+
     // Form Submission
     const form = document.getElementById('predictForm');
     const modal = document.getElementById('resultModal');
@@ -61,17 +109,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                if (data.error) {
-                    throw new Error(data.error);
+                if (!response.ok) {
+                    let errorMsg = 'An error occurred during prediction.';
+                    if (data.detail) {
+                        if (Array.isArray(data.detail)) {
+                            errorMsg = data.detail.map(d => {
+                                // Map technical field names to human labels
+                                const field = d.loc[d.loc.length - 1];
+                                const label = fieldLabels[field] || field;
+                                return `${label}: ${d.msg}`;
+                            }).join('\n');
+                        } else {
+                            errorMsg = data.detail;
+                        }
+                    }
+                    throw new Error(errorMsg);
                 }
 
                 // Populate Results
                 displayResults(data);
                 openModal();
+                showNotification('Analysis complete! Check the results.', 'success');
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred during prediction. Please check your inputs.');
+                showNotification(error.message, 'error');
             } finally {
                 // Reset Button
                 submitBtn.innerHTML = originalBtnText;

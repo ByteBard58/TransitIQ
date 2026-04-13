@@ -115,8 +115,7 @@ def health():
 
 @app.get("/")
 def home():
-    msg = "Welcome to TransitIQ !"
-    return JSONResponse(content=msg,status_code=200)
+    return FileResponse(INDEX_PATH)
 
 @app.get("/about")
 def about():
@@ -138,7 +137,7 @@ def predict_with_manual_inputs(
         if column_names[i] == key:
             sample.append(val)
         else:
-            raise ValueError("The payload does not match the original order defined by the BaseModel")
+            raise ValueError(f"Payload key {key} does not match expected column {column_names[i]}")
     sample = np.array(sample).reshape(1,-1)
     
     label = int(pipe.predict(sample)[0])
@@ -147,9 +146,9 @@ def predict_with_manual_inputs(
     label:str = reverse_mapping.get(label)
     proba:dict = {cls:round(proba,3) for cls,proba in zip(reverse_mapping.values(),proba)}
     msg = {
-        "status":"prediction successful",
-        "predicted_label":label,
-        "predction_probability":proba
+        "status":"success",
+        "prediction":label,
+        "probabilities":proba
     }
 
     return JSONResponse(status_code=201,content=msg)

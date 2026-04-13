@@ -1,132 +1,172 @@
-{% extends "base.html" %}
-
-{% block title %}Home - TransitIQ{% endblock %}
-
-{% block content %}
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-        <h3 class="hero-subtitle">Welcome to the Future</h3>
-        <h1 class="hero-title">
-            Discover New <br>
-            <span class="text-gradient">Worlds</span>
-        </h1>
-        <p class="hero-description">
-            Harness the power of Machine Learning to classify exoplanets. 
-            Input transit data and let our advanced ensemble model determine if it's a 
-            Confirmed Planet, Candidate, or False Positive.
-        </p>
-        <button id="scroll-to-form" class="btn btn-primary">
-            Start Analysis <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - TransitIQ</title>
     
-    <div class="hero-image">
-        <div class="hero-img-wrapper">
-            <img src="{{ url_for('static', filename='materials/d821657540b6765c2d915b547bfce9c5 (1).jpg') }}" alt="Exoplanet Art" class="hero-img">
-        </div>
-    </div>
-</section>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
 
-<!-- Form Section -->
-<section id="form-section" class="form-section">
-    <div class="glass-card">
-        <div class="form-header">
-            <h2 class="form-title">Input <span class="text-gradient">Parameters</span></h2>
-            <p style="color: var(--text-muted);">Enter the transit details below to generate a prediction.</p>
-        </div>
-
-        <form id="predictForm" class="form-grid">
-            <!-- Inputs -->
-            <div class="input-group">
-                <input type="number" step="any" id="orbital-period" class="input-field" placeholder=" " required>
-                <label for="orbital-period" class="input-label">Orbital Period (days)</label>
+    <!-- Header -->
+    <header class="site-header">
+        <a href="/" class="site-title-link">
+            <div class="logo-container">
+                <img src="/static/materials/32247a32f95f2504404c78a8df9ed849.png" alt="NASA Logo" class="nasa-logo">
+                <h1 class="site-title">
+                    TransitIQ
+                    <span>AI-Powered Exoplanet Classifier</span>
+                </h1>
             </div>
+        </a>
+        <nav>
+            <a href="/about" class="nav-link">Learn More</a>
+        </nav>
+    </header>
 
-            <div class="input-group">
-                <input type="number" step="any" id="transit-epoch" class="input-field" placeholder=" " required>
-                <label for="transit-epoch" class="input-label">Transit Epoch (BJD)</label>
-            </div>
+    <div id="notification-container"></div>
 
-            <div class="input-group">
-                <input type="number" step="any" id="transit-depth" class="input-field" placeholder=" " required>
-                <label for="transit-depth" class="input-label">Transit Depth (ppm)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="planet-radius" class="input-field" placeholder=" " required>
-                <label for="planet-radius" class="input-label">Planet Radius (Earth radii)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="semi-major-axis" class="input-field" placeholder=" " required>
-                <label for="semi-major-axis" class="input-label">Semi-Major Axis (AU)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="inclination" class="input-field" placeholder=" " required>
-                <label for="inclination" class="input-label">Inclination (deg)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="equilibrium-temp" class="input-field" placeholder=" " required>
-                <label for="equilibrium-temp" class="input-label">Equilibrium Temp (K)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="insolation-flux" class="input-field" placeholder=" " required>
-                <label for="insolation-flux" class="input-label">Insolation Flux (Earth flux)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="impact-parameter" class="input-field" placeholder=" " required>
-                <label for="impact-parameter" class="input-label">Impact Parameter</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="radius-ratio" class="input-field" placeholder=" " required>
-                <label for="radius-ratio" class="input-label">Planet/Star Radius Ratio</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="stellar-density" class="input-field" placeholder=" " required>
-                <label for="stellar-density" class="input-label">Stellar Density (g/cm³)</label>
-            </div>
-
-            <div class="input-group">
-                <input type="number" step="any" id="star-distance" class="input-field" placeholder=" " required>
-                <label for="star-distance" class="input-label">Planet-Star Distance (R★)</label>
-            </div>
-
-            <div class="input-group" style="grid-column: 1 / -1;">
-                <input type="number" step="any" id="num-transits" class="input-field" placeholder=" " required>
-                <label for="num-transits" class="input-label">Number of Transits</label>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">
-                    Run Prediction <i class="fa-solid fa-rocket"></i>
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h3 class="hero-subtitle">Welcome to the Future</h3>
+                <h1 class="hero-title">
+                    Discover New <br>
+                    <span class="text-gradient">Worlds</span>
+                </h1>
+                <p class="hero-description">
+                    Harness the power of Machine Learning to classify exoplanets. 
+                    Input transit data and let our advanced ensemble model determine if it's a 
+                    Confirmed Planet, Candidate, or False Positive.
+                </p>
+                <button id="scroll-to-form" class="btn btn-primary">
+                    Start Analysis <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
-        </form>
-    </div>
-</section>
+            
+            <div class="hero-image">
+                <div class="hero-img-wrapper">
+                    <img src="/static/materials/d821657540b6765c2d915b547bfce9c5 (1).jpg" alt="Exoplanet Art" class="hero-img">
+                </div>
+            </div>
+        </section>
 
-<!-- Result Modal -->
-<div id="resultModal" class="modal-overlay">
-    <div class="modal-content">
-        <button id="closeModal" class="close-modal">&times;</button>
-        
-        <div class="result-header">
-            <h3>Analysis Complete</h3>
-            <div id="predictionResult" class="prediction-result">CONFIRMED</div>
-        </div>
+        <!-- Form Section -->
+        <section id="form-section" class="form-section">
+            <div class="glass-card">
+                <div class="form-header">
+                    <h2 class="form-title">Input <span class="text-gradient">Parameters</span></h2>
+                    <p style="color: var(--text-muted);">Enter the transit details below to generate a prediction.</p>
+                </div>
 
-        <div id="resultsContainer">
-            <div id="probabilityBars">
-                <!-- Bars injected by JS -->
+                <form id="predictForm" class="form-grid">
+                    <!-- Inputs - IDs updated to match UserInput schema -->
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_period" class="input-field" placeholder=" " required>
+                        <label for="koi_period" class="input-label">Orbital Period (days)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_time0bk" class="input-field" placeholder=" " required>
+                        <label for="koi_time0bk" class="input-label">Transit Epoch (BJD)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_depth" class="input-field" placeholder=" " required>
+                        <label for="koi_depth" class="input-label">Transit Depth (ppm)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_prad" class="input-field" placeholder=" " required>
+                        <label for="koi_prad" class="input-label">Planet Radius (Earth radii)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_sma" class="input-field" placeholder=" " required>
+                        <label for="koi_sma" class="input-label">Semi-Major Axis (AU)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_incl" class="input-field" placeholder=" " required>
+                        <label for="koi_incl" class="input-label">Inclination (deg)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_teq" class="input-field" placeholder=" " required>
+                        <label for="koi_teq" class="input-label">Equilibrium Temp (K)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_insol" class="input-field" placeholder=" " required>
+                        <label for="koi_insol" class="input-label">Insolation Flux (Earth flux)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_impact" class="input-field" placeholder=" " required>
+                        <label for="koi_impact" class="input-label">Impact Parameter</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_ror" class="input-field" placeholder=" " required>
+                        <label for="koi_ror" class="input-label">Planet/Star Radius Ratio</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_srho" class="input-field" placeholder=" " required>
+                        <label for="koi_srho" class="input-label">Stellar Density (g/cm³)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" step="any" id="koi_dor" class="input-field" placeholder=" " required>
+                        <label for="koi_dor" class="input-label">Planet-Star Distance (R★)</label>
+                    </div>
+
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <input type="number" step="any" id="koi_num_transits" class="input-field" placeholder=" " required>
+                        <label for="koi_num_transits" class="input-label">Number of Transits</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Run Prediction <i class="fa-solid fa-rocket"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Result Modal -->
+        <div id="resultModal" class="modal-overlay">
+            <div class="modal-content">
+                <button id="closeModal" class="close-modal">&times;</button>
+                
+                <div class="result-header">
+                    <h3>Analysis Complete</h3>
+                    <div id="predictionResult" class="prediction-result">CONFIRMED</div>
+                </div>
+
+                <div id="resultsContainer">
+                    <div id="probabilityBars">
+                        <!-- Bars injected by JS -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+    </main>
+
+    <!-- Scripts -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,147 +1,187 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - TransitIQ</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
 
-{% block title %}About - TransitIQ{% endblock %}
-
-{% block content %}
-<div class="about-content">
-    <div class="about-section">
-        <h1 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">About the Project</h1>
-        <p>
-            The <strong>TransitIQ</strong> is an advanced machine learning tool developed for exoplanet classification research.
-            It leverages state-of-the-art ensemble algorithms to assist astronomers in identifying potential exoplanets.
-        </p>
-    </div>
-
-    <div class="about-section">
-        <h2>Objective</h2>
-        <p>
-            The primary goal is to automate the classification of transit signals. By analyzing light curves and orbital parameters, 
-            the model categorizes candidates into three distinct classes:
-        </p>
-        <ul style="margin-top: 1rem; padding-left: 1.5rem; list-style: disc; color: var(--text-muted);">
-            <li><strong style="color: var(--text-main);">CONFIRMED (2)</strong>: Verified exoplanets.</li>
-            <li><strong style="color: var(--text-main);">CANDIDATE (1)</strong>: Potential planets requiring further observation.</li>
-            <li><strong style="color: var(--text-main);">FALSE POSITIVE (0)</strong>: Signals caused by other astrophysical phenomena.</li>
-        </ul>
-    </div>
-
-    <div class="about-section">
-        <h2>Technical Architecture</h2>
-        <p>
-            Built on <strong>Scikit-learn</strong>, the system employs a Stacking Ensemble Classifier. 
-            This combines the strengths of <strong>Random Forest</strong> and <strong>XGBoost</strong>, 
-            orchestrated by a Logistic Regression meta-classifier.
-            <br><br>
-            The backend is powered by <strong>Flask</strong>, serving a robust API that processes user inputs 
-            and returns real-time predictions with probability confidence scores.
-        </p>
-    </div>
-
-    <div class="about-section">
-        <h2>Input Parameters</h2>
-        <p>The model requires 13 specific orbital and transit features derived from NASA's Kepler mission data:</p>
-        
-        <div style="overflow-x: auto;">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Unit</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Orbital Period</td>
-                        <td>Days</td>
-                        <td>Time taken to complete one full orbit.</td>
-                    </tr>
-                    <tr>
-                        <td>Transit Epoch</td>
-                        <td>BJD</td>
-                        <td>Time of the center of the first transit.</td>
-                    </tr>
-                    <tr>
-                        <td>Transit Depth</td>
-                        <td>ppm</td>
-                        <td>Fraction of stellar flux lost during transit.</td>
-                    </tr>
-                    <tr>
-                        <td>Planet Radius</td>
-                        <td>Earth Radii</td>
-                        <td>Estimated radius of the planet.</td>
-                    </tr>
-                    <tr>
-                        <td>Semi-Major Axis</td>
-                        <td>AU</td>
-                        <td>Average distance from the host star.</td>
-                    </tr>
-                    <tr>
-                        <td>Inclination</td>
-                        <td>Degrees</td>
-                        <td>Angle of the orbital plane.</td>
-                    </tr>
-                    <tr>
-                        <td>Equilibrium Temp</td>
-                        <td>Kelvin</td>
-                        <td>Theoretical surface temperature.</td>
-                    </tr>
-                    <tr>
-                        <td>Insolation Flux</td>
-                        <td>Earth Flux</td>
-                        <td>Incident solar radiation.</td>
-                    </tr>
-                    <tr>
-                        <td>Impact Parameter</td>
-                        <td>-</td>
-                        <td>Sky-projected distance at conjunction.</td>
-                    </tr>
-                    <tr>
-                        <td>Radius Ratio</td>
-                        <td>-</td>
-                        <td>Ratio of planet radius to star radius.</td>
-                    </tr>
-                    <tr>
-                        <td>Stellar Density</td>
-                        <td>g/cm³</td>
-                        <td>Density of the host star.</td>
-                    </tr>
-                    <tr>
-                        <td>Planet-Star Dist</td>
-                        <td>Stellar Radii</td>
-                        <td>Distance scaled by star size.</td>
-                    </tr>
-                    <tr>
-                        <td>Num Transits</td>
-                        <td>Count</td>
-                        <td>Total number of transit events observed.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="about-section">
-        <h2>Disclaimer</h2>
-        <p style="color: var(--text-muted); font-style: italic;">
-            While this model achieves high accuracy on the validation set, no ML model is infallible. 
-            Predictions should be used as a preliminary screening tool rather than absolute confirmation.
-            The model is optimized for Kepler-like data distributions.
-        </p>
-    </div>
-
-    <div style="margin-top: 4rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 2rem;">
-        <p>
-            <a href="https://github.com/ByteBard58/TransitIQ" target="_blank" style="color: var(--accent-primary); font-weight: 600;">
-                <i class="fa-brands fa-github"></i> View Source on GitHub
-            </a>
-        </p>
-        <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
-            &copy; 2025 TransitIQ. Licensed under MIT.
-        </p>
-        <a href="{{ url_for('home') }}" class="btn btn-primary" style="margin-top: 2rem; display: inline-flex;">
-            <i class="fa-solid fa-arrow-left"></i> Back to TransitIQ
+    <!-- Header -->
+    <header class="site-header">
+        <a href="/" class="site-title-link">
+            <div class="logo-container">
+                <img src="/static/materials/32247a32f95f2504404c78a8df9ed849.png" alt="NASA Logo" class="nasa-logo">
+                <h1 class="site-title">
+                    TransitIQ
+                    <span>AI-Powered Exoplanet Classifier</span>
+                </h1>
+            </div>
         </a>
-    </div>
-</div>
-{% endblock %}
+        <nav>
+            <a href="/about" class="nav-link">Learn More</a>
+        </nav>
+    </header>
+
+    <div id="notification-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="about-content">
+            <div class="about-section">
+                <h1 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">About the Project</h1>
+                <p>
+                    The <strong>TransitIQ</strong> is an advanced machine learning tool developed for exoplanet classification research.
+                    It leverages state-of-the-art ensemble algorithms to assist astronomers in identifying potential exoplanets.
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2>Objective</h2>
+                <p>
+                    The primary goal is to automate the classification of transit signals. By analyzing light curves and orbital parameters, 
+                    the model categorizes candidates into three distinct classes:
+                </p>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem; list-style: disc; color: var(--text-muted);">
+                    <li><strong style="color: var(--text-main);">CONFIRMED (2)</strong>: Verified exoplanets.</li>
+                    <li><strong style="color: var(--text-main);">CANDIDATE (1)</strong>: Potential planets requiring further observation.</li>
+                    <li><strong style="color: var(--text-main);">FALSE POSITIVE (0)</strong>: Signals caused by other astrophysical phenomena.</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2>Technical Architecture</h2>
+                <p>
+                    Built on <strong>Scikit-learn</strong>, the system employs a Stacking Ensemble Classifier. 
+                    This combines the strengths of <strong>Random Forest</strong> and <strong>XGBoost</strong>, 
+                    orchestrated by a Logistic Regression meta-classifier.
+                    <br><br>
+                    The backend is powered by <strong>FastAPI</strong>, serving a robust API that processes user inputs 
+                    and returns real-time predictions with probability confidence scores.
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2>Input Parameters</h2>
+                <p>The model requires 13 specific orbital and transit features derived from NASA's Kepler mission data:</p>
+                
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Unit</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Orbital Period</td>
+                                <td>Days</td>
+                                <td>Time taken to complete one full orbit.</td>
+                            </tr>
+                            <tr>
+                                <td>Transit Epoch</td>
+                                <td>BJD</td>
+                                <td>Time of the center of the first transit.</td>
+                            </tr>
+                            <tr>
+                                <td>Transit Depth</td>
+                                <td>ppm</td>
+                                <td>Fraction of stellar flux lost during transit.</td>
+                            </tr>
+                            <tr>
+                                <td>Planet Radius</td>
+                                <td>Earth Radii</td>
+                                <td>Estimated radius of the planet.</td>
+                            </tr>
+                            <tr>
+                                <td>Semi-Major Axis</td>
+                                <td>AU</td>
+                                <td>Average distance from the host star.</td>
+                            </tr>
+                            <tr>
+                                <td>Inclination</td>
+                                <td>Degrees</td>
+                                <td>Angle of the orbital plane.</td>
+                            </tr>
+                            <tr>
+                                <td>Equilibrium Temp</td>
+                                <td>Kelvin</td>
+                                <td>Theoretical surface temperature.</td>
+                            </tr>
+                            <tr>
+                                <td>Insolation Flux</td>
+                                <td>Earth Flux</td>
+                                <td>Incident solar radiation.</td>
+                            </tr>
+                            <tr>
+                                <td>Impact Parameter</td>
+                                <td>-</td>
+                                <td>Sky-projected distance at conjunction.</td>
+                            </tr>
+                            <tr>
+                                <td>Radius Ratio</td>
+                                <td>-</td>
+                                <td>Ratio of planet radius to star radius.</td>
+                            </tr>
+                            <tr>
+                                <td>Stellar Density</td>
+                                <td>g/cm³</td>
+                                <td>Density of the host star.</td>
+                            </tr>
+                            <tr>
+                                <td>Planet-Star Dist</td>
+                                <td>Stellar Radii</td>
+                                <td>Distance scaled by star size.</td>
+                            </tr>
+                            <tr>
+                                <td>Num Transits</td>
+                                <td>Count</td>
+                                <td>Total number of transit events observed.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Disclaimer</h2>
+                <p style="color: var(--text-muted); font-style: italic;">
+                    While this model achieves high accuracy on the validation set, no ML model is infallible. 
+                    Predictions should be used as a preliminary screening tool rather than absolute confirmation.
+                    The model is optimized for Kepler-like data distributions.
+                </p>
+            </div>
+
+            <div style="margin-top: 4rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 2rem;">
+                <p>
+                    <a href="https://github.com/ByteBard58/TransitIQ" target="_blank" style="color: var(--accent-primary); font-weight: 600;">
+                        <i class="fa-brands fa-github"></i> View Source on GitHub
+                    </a>
+                </p>
+                <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                    &copy; 2025 TransitIQ. Licensed under MIT.
+                </p>
+                <a href="/" class="btn btn-primary" style="margin-top: 2rem; display: inline-flex;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to TransitIQ
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
