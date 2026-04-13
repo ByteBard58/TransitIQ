@@ -1,4 +1,4 @@
-# Dockerfile (exoplanet_classifier)
+# Dockerfile (TransitIQ)
 FROM python:3.11-slim
 
 # Avoid interactive prompts
@@ -14,10 +14,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # copy app source
 COPY . .
 
-# example env and port
-ENV FLASK_APP=app.py
-EXPOSE 5000
+# expose port
+EXPOSE 8000
 
-# run the flask app
-CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "2"]
+# run the fastapi app
+CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000"]
 
