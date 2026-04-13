@@ -180,6 +180,12 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 600px;
 }
 
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
 .hero-image {
     flex: 1;
     display: flex;
@@ -258,9 +264,58 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-main);
 }
 
+.btn-secondary {
+    background: transparent;
+    color: var(--text-main);
+    border: 2px solid var(--accent-primary);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--accent-primary);
+    transition: var(--transition-smooth);
+    z-index: -1;
+}
+
+.btn-secondary:hover::before {
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    color: var(--text-main);
+}
+
+.btn-secondary-small {
+    background: transparent;
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary-small:hover {
+    background: var(--accent-primary);
+    color: var(--bg-dark);
+}
+
 /* =========================================
-   Form Section
-   ========================================= */
+    Form Section
+    ========================================= */
 .form-section {
     padding: 6rem 0;
     display: flex;
@@ -432,8 +487,290 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =========================================
-   About Page Styles
-   ========================================= */
+    Tab Navigation
+    ========================================= */
+.tab-nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab-link {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    transition: var(--transition-smooth);
+}
+
+.tab-link:hover {
+    color: var(--text-main);
+}
+
+.tab-link.active {
+    color: var(--text-main);
+}
+
+.tab-link.active::after {
+    width: 100%;
+}
+
+.tab-link[href] {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-link[href]:hover {
+    color: var(--text-main);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* =========================================
+    CSV Requirements
+    ========================================= */
+.csv-requirements {
+    background: rgba(0, 188, 255, 0.05);
+    border: 1px solid rgba(0, 188, 255, 0.2);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.csv-requirements h3 {
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.warning-text {
+    color: #ffab00;
+    margin-bottom: 1rem;
+}
+
+.error-text {
+    color: #ff4b2b;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.column-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+}
+
+.column-list li {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.column-list code {
+    color: var(--accent-primary);
+    background: rgba(0, 188, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+/* =========================================
+    File Upload
+    ========================================= */
+.batch-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.file-upload-wrapper {
+    position: relative;
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.file-upload-label:hover {
+    border-color: var(--accent-primary);
+    background: rgba(0, 188, 255, 0.05);
+}
+
+.file-upload-label i {
+    font-size: 3rem;
+    color: var(--accent-primary);
+}
+
+.file-upload-label span {
+    color: var(--text-muted);
+}
+
+.file-upload-wrapper input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-name {
+    margin-top: 1rem;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+/* =========================================
+    Large Modal for Batch
+    ========================================= */
+.modal-large {
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.batch-summary {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.batch-summary h4 {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Pie Chart */
+.pie-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.pie-chart {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.pie-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.pie-legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* Batch Result Table */
+.batch-table-wrapper {
+    margin-top: 1.5rem;
+}
+
+.batch-table-wrapper h4 {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.batch-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.batch-result-table th,
+.batch-result-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.batch-result-table th {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--accent-primary);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.batch-result-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.batch-result-table .prediction-cell {
+    font-weight: 600;
+}
+
+.class-confirmed { color: #00ff88; }
+.class-candidate { color: #ffab00; }
+.class-false { color: #ff4b2b; }
+
+.high-confidence { color: #00ff88; }
+.medium-confidence { color: #ffab00; }
+.low-confidence { color: #ff4b2b; }
+
+/* =========================================
+    About Page Styles
+    ========================================= */
 .about-content {
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
@@ -480,6 +817,72 @@ h1, h2, h3, h4, h5, h6 {
 
 .data-table tr:hover td {
     background: rgba(255, 255, 255, 0.02);
+}
+
+/* Notification System */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    width: 320px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), 0 5px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(calc(100% + 40px));
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.notification.active {
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left: 4px solid #00ff88;
+}
+
+.notification.error {
+    border-left: 4px solid #ff4b2b;
+}
+
+.notification.info {
+    border-left: 4px solid var(--accent-primary);
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+}
+
+.notification.success .notification-icon { color: #00ff88; }
+.notification.error .notification-icon { color: #ff4b2b; }
+.notification.info .notification-icon { color: var(--accent-primary); }
+
+/* Header Link Fix */
+.site-title-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition-fast);
+}
+
+.site-title-link:hover {
+    opacity: 0.8;
 }
 
 /* =========================================
