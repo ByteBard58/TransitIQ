@@ -15,7 +15,7 @@
     --glass-border: rgba(255, 255, 255, 0.15);
     
     /* Spacing & Layout */
-    --container-width: 1200px;
+    --container-width: 1400px;
     --header-height: 80px;
     --radius-lg: 24px;
     --radius-md: 12px;
@@ -826,11 +826,18 @@ h1, h2, h3, h4, h5, h6 {
     padding: 4rem 0;
 }
 
+.performance-section .glass-card {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .performance-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
 }
 
 @media (max-width: 1200px) {
@@ -845,22 +852,10 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: var(--radius-lg);
     padding: 3rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.cm-container::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    background: var(--accent-primary);
-    filter: blur(120px);
-    opacity: 0.1;
-    z-index: 0;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-subtitle {
@@ -873,13 +868,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .confusion-matrix {
     width: 100%;
-    max-width: 800px;
+    max-width: 880px;
     height: auto;
     border-radius: var(--radius-md);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 188, 255, 0.1);
     transition: var(--transition-smooth);
-    position: relative;
-    z-index: 1;
     background: #0a0a0a;
 }
 
@@ -891,7 +884,9 @@ h1, h2, h3, h4, h5, h6 {
 .metrics-container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
 }
 
 .metrics-container .section-subtitle {

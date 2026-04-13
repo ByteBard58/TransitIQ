@@ -154,7 +154,7 @@ def main() -> None:
     # Custom cosmic dark theme
     plt.style.use('dark_background')
     
-    fig, ax = plt.subplots(figsize=(16, 14))
+    fig, ax = plt.subplots(figsize=(12, 12))
     fig.patch.set_facecolor('#0a0a0a')
     ax.set_facecolor('#0a0a0a')
     
@@ -179,20 +179,20 @@ def main() -> None:
         fmt="d",
         square=True,
         cmap=cmap,
-        cbar_kws={'label': 'Count', 'shrink': 0.8},
-        linewidths=3,
+        cbar_kws={'label': 'Count', 'shrink': 1.0},
+        linewidths=4,
         linecolor='#1a1a1a',
         ax=ax,
-        annot_kws={'size': 24, 'weight': 'bold', 'color': '#ffffff'}
+        annot_kws={'size': 32, 'weight': 'bold', 'color': '#ffffff'}
     )
     
     # Customize appearance
-    ax.set_xlabel('Predicted', fontsize=18, color='#ffffff', fontweight='bold', labelpad=20)
-    ax.set_ylabel('Actual', fontsize=18, color='#ffffff', fontweight='bold', labelpad=20)
-    ax.set_title('Confusion Matrix', fontsize=26, color='#00BCFF', fontweight='bold', pad=30)
+    ax.set_xlabel('Predicted', fontsize=22, color='#ffffff', fontweight='bold', labelpad=25)
+    ax.set_ylabel('Actual', fontsize=22, color='#ffffff', fontweight='bold', labelpad=25)
+    ax.set_title('Confusion Matrix', fontsize=36, color='#00BCFF', fontweight='bold', pad=40)
     
     # Style tick labels
-    ax.tick_params(axis='both', colors='#a0a0a0', labelsize=16)
+    ax.tick_params(axis='both', colors='#a0a0a0', labelsize=18)
     ax.set_xticklabels(ax.get_xticklabels(), rotation=0, ha='center')
     ax.set_yticklabels(ax.get_yticklabels(), rotation=0, ha='right')
     
@@ -200,10 +200,10 @@ def main() -> None:
     cbar = ax.collections[0].colorbar
     cbar.ax.yaxis.set_tick_params(color='#a0a0a0')
     cbar.outline.set_edgecolor('#1a1a1a')
-    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#a0a0a0', size=14)
+    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#a0a0a0', size=16)
     
     plt.tight_layout()
-    plt.savefig(CONF_MAT_PATH, dpi=300, facecolor='#0a0a0a', edgecolor='none', bbox_inches='tight')
+    plt.savefig(CONF_MAT_PATH, dpi=300, facecolor='#0a0a0a', edgecolor='none', bbox_inches='tight', pad_inches=0.1)
     plt.close()
     print(f"Confusion Matrix is successfully saved at {str(CONF_MAT_PATH)}")
   
