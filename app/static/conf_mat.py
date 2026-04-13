@@ -180,19 +180,19 @@ def main() -> None:
         square=True,
         cmap=cmap,
         cbar_kws={'label': 'Count', 'shrink': 0.8},
-        linewidths=2,
+        linewidths=3,
         linecolor='#1a1a1a',
         ax=ax,
-        annot_kws={'size': 14, 'weight': 'bold', 'color': '#ffffff'}
+        annot_kws={'size': 24, 'weight': 'bold', 'color': '#ffffff'}
     )
     
     # Customize appearance
-    ax.set_xlabel('Predicted', fontsize=14, color='#ffffff', fontweight='bold', labelpad=15)
-    ax.set_ylabel('Actual', fontsize=14, color='#ffffff', fontweight='bold', labelpad=15)
-    ax.set_title('Confusion Matrix', fontsize=18, color='#00BCFF', fontweight='bold', pad=20)
+    ax.set_xlabel('Predicted', fontsize=18, color='#ffffff', fontweight='bold', labelpad=20)
+    ax.set_ylabel('Actual', fontsize=18, color='#ffffff', fontweight='bold', labelpad=20)
+    ax.set_title('Confusion Matrix', fontsize=26, color='#00BCFF', fontweight='bold', pad=30)
     
     # Style tick labels
-    ax.tick_params(axis='both', colors='#a0a0a0', labelsize=12)
+    ax.tick_params(axis='both', colors='#a0a0a0', labelsize=16)
     ax.set_xticklabels(ax.get_xticklabels(), rotation=0, ha='center')
     ax.set_yticklabels(ax.get_yticklabels(), rotation=0, ha='right')
     
@@ -200,10 +200,10 @@ def main() -> None:
     cbar = ax.collections[0].colorbar
     cbar.ax.yaxis.set_tick_params(color='#a0a0a0')
     cbar.outline.set_edgecolor('#1a1a1a')
-    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#a0a0a0')
+    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#a0a0a0', size=14)
     
     plt.tight_layout()
-    plt.savefig(CONF_MAT_PATH,dpi=150, facecolor='#0a0a0a', edgecolor='none')
+    plt.savefig(CONF_MAT_PATH, dpi=300, facecolor='#0a0a0a', edgecolor='none', bbox_inches='tight')
     plt.close()
     print(f"Confusion Matrix is successfully saved at {str(CONF_MAT_PATH)}")
   
