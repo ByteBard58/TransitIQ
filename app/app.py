@@ -88,10 +88,10 @@ def validate_csv(target:pd.DataFrame,expected_columns:List) -> pd.DataFrame:
     """
     Helper for validating user-uploaded `.csv` files during batch prediction
     """
-    if target.columns != expected_columns:
+    if target.columns.to_list() != expected_columns:
         raise HTTPException(
             status_code=422,
-            detail="The columns of the uploaded `.csv` files do not match with the expected list of columns or the order of them"
+            detail="The columns of the uploaded .csv file do not match with the expected list of columns or the order of them"
 
         )
     try:
@@ -155,7 +155,7 @@ def predict_with_manual_inputs(
     return JSONResponse(status_code=201,content=msg)
 
 @app.post("/predict/batch")
-def predict_with_batch_input(
+async def predict_with_batch_input(
     file:UploadFile, 
     dep:Tuple[Pipeline,np.ndarray] = Depends(get_artifacts)
 ):
@@ -165,14 +165,14 @@ def predict_with_batch_input(
     ext = Path(file.filename).suffix
     if ext != ".csv":
         raise HTTPException(
-            status_code=422, detail=f"Only `.csv` file is allowed as an upload, got {ext} instead"
+            status_code=422, detail=f"Only .csv file is allowed as an upload, got {ext} instead"
         )
     
     try:
-        df = pd.read_csv(file)
+        df = pd.read_csv(file.file)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"Failed to parse CSV file tracking: {str(e)}")
-    df:np.ndarray = validate_csv(df).to_numpy()
+    df:np.ndarray = validate_csv(df,column_names).to_numpy()
 
     sample = df
     label:List[float] = pipe.predict(sample).tolist()
