@@ -151,16 +151,59 @@ def main() -> None:
 
     cm = confusion_matrix(y_true,y_pred)
 
+    # Custom cosmic dark theme
+    plt.style.use('dark_background')
+    
+    fig, ax = plt.subplots(figsize=(16, 14))
+    fig.patch.set_facecolor('#0a0a0a')
+    ax.set_facecolor('#0a0a0a')
+    
+    # Custom colormap - cosmic blue to cyan
+    cmap = sns.color_palette([
+        '#0a0a0a',
+        '#001a2c',
+        '#003355',
+        '#004d7a',
+        '#0066a3',
+        '#0080cc',
+        '#0099f5',
+        '#00b3ff'
+    ], as_cmap=True)
+    
+    # Create heatmap with custom styling
     sns.heatmap(
         cm,
         xticklabels=labels,
         yticklabels=labels,
-        annot=True, fmt="d",
+        annot=True,
+        fmt="d",
         square=True,
-        cmap="flare"
+        cmap=cmap,
+        cbar_kws={'label': 'Count', 'shrink': 0.8},
+        linewidths=2,
+        linecolor='#1a1a1a',
+        ax=ax,
+        annot_kws={'size': 14, 'weight': 'bold', 'color': '#ffffff'}
     )
+    
+    # Customize appearance
+    ax.set_xlabel('Predicted', fontsize=14, color='#ffffff', fontweight='bold', labelpad=15)
+    ax.set_ylabel('Actual', fontsize=14, color='#ffffff', fontweight='bold', labelpad=15)
+    ax.set_title('Confusion Matrix', fontsize=18, color='#00BCFF', fontweight='bold', pad=20)
+    
+    # Style tick labels
+    ax.tick_params(axis='both', colors='#a0a0a0', labelsize=12)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=0, ha='center')
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=0, ha='right')
+    
+    # Style colorbar
+    cbar = ax.collections[0].colorbar
+    cbar.ax.yaxis.set_tick_params(color='#a0a0a0')
+    cbar.outline.set_edgecolor('#1a1a1a')
+    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#a0a0a0')
+    
     plt.tight_layout()
-    plt.savefig(CONF_MAT_PATH,dpi=150)
+    plt.savefig(CONF_MAT_PATH,dpi=150, facecolor='#0a0a0a', edgecolor='none')
     plt.close()
     print(f"Confusion Matrix is successfully saved at {str(CONF_MAT_PATH)}")
   

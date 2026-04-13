@@ -819,6 +819,153 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(255, 255, 255, 0.02);
 }
 
+/* =========================================
+    Performance Tab Styles
+    ========================================= */
+.performance-section {
+    padding: 4rem 0;
+}
+
+.performance-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 1200px) {
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cm-container {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--accent-primary);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.confusion-matrix {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: 0 15px 40px rgba(0, 188, 255, 0.15);
+}
+
+.metrics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.metrics-container .section-subtitle {
+    margin-bottom: 0.5rem;
+}
+
+.accuracy-card {
+    background: linear-gradient(135deg, rgba(0, 188, 255, 0.1), rgba(0, 119, 255, 0.1));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    text-align: center;
+}
+
+.accuracy-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    font-family: 'Lexend Deca', sans-serif;
+    line-height: 1;
+}
+
+.accuracy-label {
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+.metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+.metrics-table th,
+.metrics-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.metrics-table th {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metrics-table td:first-child {
+    text-align: left;
+}
+
+.metrics-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.metrics-table tfoot td {
+    background: rgba(0, 188, 255, 0.05);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-bottom: none;
+}
+
+.model-info {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.model-info h4 {
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.model-info p {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.model-info ul {
+    list-style: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.model-info li {
+    margin-bottom: 0.3rem;
+}
+
+.model-info li strong {
+    color: var(--text-main);
+}
+
 /* Notification System */
 #notification-container {
     position: fixed;

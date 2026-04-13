@@ -39,6 +39,9 @@
             <button class="tab-link" data-tab="batch">
                 <i class="fa-solid fa-upload"></i> Batch
             </button>
+            <button class="tab-link" data-tab="performance">
+                <i class="fa-solid fa-chart-pie"></i> Performance
+            </button>
             <a href="/about" class="tab-link">
                 <i class="fa-solid fa-circle-question"></i> About
             </a>
@@ -220,6 +223,84 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </section>
+        </section>
+
+        <!-- Performance Tab -->
+        <section id="performance-tab" class="tab-content">
+            <section class="performance-section">
+                <div class="glass-card">
+                    <div class="form-header">
+                        <h2 class="form-title">Model <span class="text-gradient">Performance</span></h2>
+                        <p style="color: var(--text-muted);">Evaluation metrics and confusion matrix of the stacking ensemble classifier.</p>
+                    </div>
+
+                    <div class="performance-grid">
+                        <div class="cm-container">
+                            <h3 class="section-subtitle">Confusion Matrix</h3>
+                            <img src="/static/materials/confusion_mat.png" alt="Confusion Matrix" class="confusion-matrix">
+                        </div>
+
+                        <div class="metrics-container">
+                            <h3 class="section-subtitle">Classification Metrics</h3>
+                            
+                            <div class="accuracy-card">
+                                <div class="accuracy-value">0.75</div>
+                                <div class="accuracy-label">Overall Accuracy</div>
+                            </div>
+
+                            <table class="metrics-table">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1-Score</th>
+                                        <th>Support</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="class-false">FALSE POSITIVE</span></td>
+                                        <td>0.82</td>
+                                        <td>0.81</td>
+                                        <td>0.82</td>
+                                        <td>1718</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="class-candidate">CANDIDATE</span></td>
+                                        <td>0.56</td>
+                                        <td>0.55</td>
+                                        <td>0.56</td>
+                                        <td>1118</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="class-confirmed">CONFIRMED</span></td>
+                                        <td>0.79</td>
+                                        <td>0.81</td>
+                                        <td>0.80</td>
+                                        <td>1687</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"><strong>Weighted Avg: Precision 0.74 | Recall 0.75 | F1 0.75</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <div class="model-info">
+                                <h4>Model Architecture</h4>
+                                <p>Stacking Ensemble with:</p>
+                                <ul>
+                                    <li><strong>Base Models:</strong> Random Forest (1000 trees), XGBoost</li>
+                                    <li><strong>Meta-Classifier:</strong> Logistic Regression (SAGA, L2)</li>
+                                    <li><strong>Preprocessing:</strong> StandardScaler + SMOTE</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </section>
