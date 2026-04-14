@@ -4,8 +4,9 @@
 > 
 > The original repository remains archived under [**Ontohin 4b**](https://github.com/Ontohin-4b) and licensed as such. This fork exists purely for further research, experimentation, and personal development to make the classifier far more powerful and accurate than the hackathon version.
 
-A robust, data-driven Machine Learning tool that classifies whether a given set of transit data corresponds to a **confirmed exoplanet**, **false positive**, or **candidate**.  
-This version blends the strengths of **ensemble learning** with extensive preprocessing, imputation, and class balancing, resulting in a more stable and generalizable model.
+A robust, data-driven Machine Learning tool that classifies transit data into three categories: **Confirmed Exoplanets**, **False Positives**, or **Candidates**.  
+
+This version enhances the original submission with **Staking Ensemble Learning**, robust **Pydantic validation**, and a **FastAPI backend** for high-performance inference. It features extensive preprocessing, imputation, and synthetic oversampling (SMOTE) to ensure a stable and generalizable model.
 
 ---
 
@@ -17,9 +18,12 @@ This version blends the strengths of **ensemble learning** with extensive prepro
   - [Screenshots](#screenshots)
   - [Tech Stack](#tech-stack)
   - [Getting Started](#getting-started)
-  - [🐳 Run the app directly via Dockerhub Image](#-run-the-app-directly-via-dockerhub-image)
-  - [How to Use](#how-to-use)
+  - [🐳 Docker Deployment](#-docker-deployment)
+  - [Core Features](#core-features)
+    - [Interactive Web UI](#interactive-web-ui)
+    - [Batch Prediction (CSV)](#batch-prediction-csv)
   - [Project Structure](#project-structure)
+  - [Deployment & CI/CD](#deployment--cicd)
   - [Model Details](#model-details)
     - [Architecture](#architecture)
     - [Preprocessing Pipeline](#preprocessing-pipeline)
@@ -70,7 +74,7 @@ The goal is to provide a *scientifically meaningful, intuitive, and educational 
 - **Imbalanced-learn (SMOTE)** – Class balancing for improved fairness  
 - **FastAPI** – Backend web framework  
 - **HTML/CSS/JavaScript (Vanilla)** – Frontend for the interactive web UI  
-- **Jupyter Notebook** – Used as a sandbox (`research.ipynb`) to experiment with different model architectures, hyperparameters, and feature engineering before finalizing `fit.py`.
+- **[Marimo Notebook](marimo.io)** – Used as a sandbox (`notebook/research.py`) to experiment with different model architectures, hyperparameters, and feature engineering before finalizing `fit.py`.
 
 ---
 
@@ -78,99 +82,95 @@ The goal is to provide a *scientifically meaningful, intuitive, and educational 
 
 ## Getting Started
 
+### Prerequisites
+- **Python 3.11+**
+- **Docker** (Optional, for containerized deployment)
+
+### Local Setup
 
 1.  **Clone the repository**
-
-
-```bash
-git  clone  https://github.com/ByteBard58/TransitIQ
-cd  "TransitIQ"
-```
+    ```bash
+    git clone https://github.com/ByteBard58/TransitIQ
+    cd TransitIQ
+    ```
   
-2.  **Install dependencies**
+2. **Setup Virtual Environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
 
-```bash
-pip  install  -r  requirements.txt
-```
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3.  **Run the FastAPI app**
+4. **Run the Application**
+   ```bash
+   uvicorn app.app:app --reload
+   ```
+   > **Note:** On first run, the app will automatically download the required model weights (approx. 200MB) from Hugging Face if they are not found locally.
 
-```bash
-uvicorn app.app:app --host 0.0.0.0 --port 8000
-```
-4. Open your browser and go to `http://127.0.0.1:8000` to access the web interface.
-
-5. If you want to close the server, press `Ctrl + C` in the terminal.
+5. **Access the UI**
+   Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 ---
 
-## 🐳 Run the app directly via Dockerhub Image
+## 🐳 Docker Deployment
 
-I have used Docker to containerize the Exoplanet Classifier in this new fork. The [**Dockerhub repository**](https://hub.docker.com/r/bytebard101/exoplanet_classifier) allows anyone with any operating system or other system configuration to easily run the app.
+The application is fully containerized and available on [Docker Hub](https://hub.docker.com/r/bytebard101/exoplanet_classifier). It supports both **ARM64** and **AMD64** architectures.
 
-The image is built on both ARM64 and AMD64 architectures, so that it can run on almost all major computers and servers. You can run the app easily by using the Dockerhub Image. Here's how you can do it:
-1. Install [**Docker Desktop**](https://www.docker.com/products/docker-desktop/) and sign-in. Make sure the app is functioning properly.
-  
-2. Open Terminal and run:
 ```bash
-docker pull bytebard101/exoplanet_classifier
+# Pull and run the latest image
 docker run --rm -p 8000:8000 bytebard101/exoplanet_classifier:latest
 ```
-3. If your machine faces a port conflict, you will need to assign another port. Try to run this:
+
+If port `8000` is already in use, map it to a different port:
 ```bash
 docker run --rm -p 8001:8000 bytebard101/exoplanet_classifier:latest
 ```
-> If you followed Step 2 and the command ran successfully, then **DO NOT** follow this step.
-4. The app will be live at localhost:8000. Open your browser and navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000/) (or [http://127.0.0.1:8001](http://127.0.0.1:8001/) if you followed Step 3).
-
-Check [Docker Documentation](https://docs.docker.com/) to learn more about Docker and it's commands.
-
 
 ---
-  
-## How to Use
 
-- Press **Get Started** on the webpage.
+## Core Features
 
-- Enter the candidate features in the input fields (values like Orbital Period, Transit Epoch, Transit Depth, etc.).
+### Interactive Web UI
+- **Real-time Prediction:** Enter transit parameters manually to get instant classification and probability scores.
+- **Educational Tooltips:** Integrated documentation explains the significance of each scientific parameter (Orbital Period, Impact Parameter, etc.).
 
-- Click **Predict** to run the prediction.
+### Batch Prediction (CSV)
+For large-scale analysis, TransitIQ supports batch processing via CSV upload:
+1. Navigate to the **Batch Upload** tab in the UI.
+2. Upload a `.csv` file containing the required transit features (follow the sample format provided in `/data/sample_generator.py`).
+3. Download the results or visualize the distribution of predictions directly in the dashboard.
 
-- For more detailed information about each input and other subjects, press **LEARN MORE** (located at the top).
+---
 
 ---
 
 ## Project Structure
 
-```
+```text
 TransitIQ/
-├── .github/              # Folder for GitHub actions
-│
-├── app/                  # FastAPI Application
-│   ├── schema/           # Pydantic schemas
-│   ├── static/           # Static assets (CSS, JS, images)
-│   ├── templates/        # HTML templates (served as static)
-│   └── app.py            # Main FastAPI entry point
-│
-├── data/             
-│   ├── k2_data.csv
-│   ├── kepler_data.csv
-│   └── source.txt
-│
-├── models/              
-│   ├── column_names.pkl    
-│   ├── info.txt
-│   └── pipe.pkl            
-│
-├── screenshots/           
-│
-├── .gitignore
-├── fit.py
-├── LICENSE
-├── README.md          
-├── requirements.txt
-└── research.ipynb
+├── app/                # FastAPI Application
+│   ├── schema/         # Pydantic validation models
+│   ├── static/         # Frontend assets (CSS, JS, Images)
+│   └── templates/      # HTML entry points
+├── data/               # Raw transit datasets and data generators
+├── models/             # ML pipelines and HF integration scripts
+├── notebook/           # Research sandboxes (Marimo / research.py)
+├── tests/              # Pytest suite (API & Schema testing)
+├── .github/            # CI/CD Workflows (Docker Hub & Testing)
+└── Dockerfile          # Production container configuration
 ```
+
+---
+
+## Deployment & CI/CD
+
+- **Automated Testing:** Every push to `main` triggers a GitHub Action that runs the `pytest` suite to ensure API stability.
+- **Docker Hub Integration:** On successful tests, the application is automatically built for multi-arch support and pushed to Docker Hub.
+- **Model Hosting:** Large serialized model files are hosted on **Hugging Face**, ensuring the repository remains lightweight while the application can "self-heal" by downloading missing artifacts at runtime.
 
 ---
 
@@ -237,10 +237,10 @@ Targets are mapped as follows:
 ---
 
 ### Training Workflow
-- Train/test split: **2/3 training, 1/3 testing** with stratification on class labels.  
-- Pipeline is trained end-to-end in `fit.py`.  
-- Hyperparameters and model choices were extensively tested in [research.ipynb](https://github.com/ByteBard58/TransitIQ/blob/main/research.ipynb), which served as a sandbox for experimentation and optimization.  
-- Final trained pipeline is saved as `models/pipe.pkl` and column order as `models/column_names.pkl`.
+- Train/test split: **2/3 training, 1/3 testing** with stratification.  
+- Pipeline is trained end-to-end in `models/fit.py`.  
+- Hyperparameters and model choices were extensively tested in `notebook/research.py`, which served as a sandbox for experimentation and optimization.  
+- Final trained pipeline is saved as `models/pipe.pkl`.
 
 ---
 
@@ -270,7 +270,7 @@ Despite extensive experimentation, this represents the current performance ceili
 Numerous optimizations were explored — including hyperparameter tuning, feature scaling, class rebalancing, and ensemble variations — yet further improvements beyond ~0.75 accuracy were not observed.  
 This indicates a **data limitation rather than a model limitation**, as the features may not carry additional separable information for higher classification accuracy.  
 
-The research process behind this version involved significant model testing and fine-tuning efforts (see `research.ipynb`).  
+The research process behind this version involved significant model testing and fine-tuning efforts (see `notebook/research.py`).  
  
 **Suggestions and improvements are highly welcome** — contributions or insights from the community could help push the model beyond its present boundary.
 
