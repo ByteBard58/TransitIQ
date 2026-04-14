@@ -54,12 +54,10 @@ The goal is to provide a *scientifically meaningful, intuitive, and educational 
 ![Landing Page](screenshots/landing.png)
 **Input Fields**
 ![Input Fields](screenshots/input_1.png)
-**Input Fields when filled**
-![Input Fields when filled](screenshots/input_2.png)
+**Batch Prediction**
+![Batch Prediction](screenshots/input_2.png)
 **Output**
 ![Output](screenshots/output.png)
-**About Page**
-![About Page](screenshots/about.png)
 
   
 
